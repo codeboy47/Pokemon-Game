@@ -1,0 +1,292 @@
+<html>
+    <head>
+        <title>Pokemon Level 2</title>
+        <style>
+            body{
+                background-color: black;
+                padding:0px;
+                margin:0px;
+                width:100%;
+                height: 100%;
+            }
+            #mycanvas {
+                border: 2px solid #3e00ff;
+                background-image: url('assets/water.png');
+                //-webkit-background-size:contain;
+                background-repeat: repeat-x;
+                background-size:contain;
+            }
+        </style>
+    </head>
+
+    <body>
+
+    <audio src = "audio/smb3_enter_level.mp3" id = "levelStart"></audio>
+    <audio src = "audio/smb3_fortress_clear.mp3" id = "levelFinished"></audio>
+    <audio src = "audio/smb3_coin.mp3" id = "crossEnemy"></audio>
+    <audio src = "audio/smb3_player_down.mp3" id = "touchEnemy"></audio>
+    <audio src = "audio/smb3_game_over.mp3" id = "timeFinished"></audio>
+    <audio src = "audio/08-ocean-side.mp3" id = "bg"></audio>
+
+    <canvas id = "mycanvas" width = "1362.5px" height="635.5px">
+    </canvas>
+
+    <script>
+        var bg = document.getElementById("bg");
+        bg.play();
+        var canvas = document.getElementById('mycanvas');
+        var scores = document.getElementById('myscores');
+        var ctx = canvas.getContext('2d');
+        var gameOver = false;
+        var level = 1,i=0,timer = 650,time;
+
+        var score = localStorage.getItem("myscore1");
+        score = Number(score);
+
+        var lives = localStorage.getItem("mylives");
+        lives = Number(lives);
+
+        canvas.width = screen.width;//window.innerWidth;
+        canvas.height = window.innerHeight;
+        GAME_WIDTH = canvas.width; // 1360.5
+        GAME_HEIGHT = canvas.height; // 592.5
+
+        var object = {};
+        object.player = new Image();
+        object.player.src = "assets/pika.png";
+
+        object.goal = new Image();
+        object.goal.src = "assets/pokeball.png";
+
+            object.enemy = [];
+            object.enemy[0] = new Image();
+            object.enemy[0].src = "water/Squirtle2.png";
+            object.enemy[1] = new Image();
+            object.enemy[1].src = "water/psyduck1.png";
+            object.enemy[2] = new Image();
+            object.enemy[2].src = "water/aligator.png";
+            object.enemy[3] = new Image();
+            object.enemy[3].src = "water/mudkip.png";
+            object.enemy[4] = new Image();
+            object.enemy[4].src = "water/blastoise1.png";
+
+        var enemy = [
+            {
+                x : 150,
+                y : 100,
+                w : 70,
+                h : 70,
+                speedY : 6,
+            },
+            {
+                x : 350,
+                y : 350,
+                w : 60,
+                h : 70,
+                speedY : 8,
+            },
+            {
+                x : 600,
+                y : 50,
+                w : 80,
+                h : 80,
+                speedY : 7,
+            },
+            {
+                x : 850,
+                y : 10,
+                w : 70,
+                h : 70,
+                speedY : 8,
+            },
+            {
+                x : 1070,
+                y : 350,
+                w : 70,
+                h : 70,
+                speedY : 9,
+            }
+        ];
+
+        var player = {
+            x:5,
+            y:250,
+            w:50,
+            h:50,
+            speedX:4,
+            isMoving:false
+        }
+
+        var goal = {
+            x: GAME_WIDTH - 80,
+            y:240,
+            w:80,
+            h:80
+        }
+
+        canvas.addEventListener("mousedown",function(){
+            //console.log("Clicked the canvas!");
+            player.isMoving = true;
+        });
+        canvas.addEventListener("mouseup",function(){
+            //console.log("Clicked the canvas!");
+            player.isMoving = false;
+        });
+        canvas.addEventListener("touchstart",function(){
+            //console.log("Clicked the canvas!");
+            player.isMoving = true;
+        });
+        canvas.addEventListener("touchend",function(){
+            //console.log("Clicked the canvas!");
+            player.isMoving = false;
+        });
+
+        function colliding(r1,r2){
+            var condition1 = Math.abs(r1.x - r2.x) < Math.max(r1.w,r2.w);
+            var condition2 = Math.abs(r1.y - r2.y) < Math.max(r1.h,r2.h)
+            if(condition1&&condition2){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        var update = function () {
+
+            // for collision between player and enemy
+            enemy.forEach(function(element,index) {
+                if (colliding(element, player)) {
+                    lives--;
+                    if( lives <= 0){
+                        gameOver = true;
+                        lives = 3;
+                        window.location.assign("gameOver.html");
+                    }
+                    bg.pause();
+                    document.getElementById("touchEnemy").play();
+                    window.alert("\n\n   GAME OVER  !!!! \n\n   YOUR SCORE IS : " + score +"\n\n");
+                    gameOver = true;
+                    //window.location = "";
+
+                }
+            });
+
+            // when player reaches the goal
+            //console.log(window.innerHeight);
+            if(player.x >= canvas.width - 70){
+                bg.pause();
+                document.getElementById("levelFinished").play();
+                alert("\n\n   CONGRATS !!! \n\n   YOUR SCORE IS : " + score +"\n\n");
+                gameOver = true;
+                level = 2;
+                window.location.assign("advancedPokemonGame_3.html");
+                //location.reload();
+            }
+
+            enemy.forEach(function(element,index) {
+                element.y += element.speedY;
+                if(element.y >= GAME_HEIGHT - 65 || element.y <=0){
+                    element.speedY *= -1;
+                }
+            });
+
+            if(player.isMoving == true){
+                player.x += player.speedX;
+            }
+
+            // for score
+            /*enemy.forEach(function(element,index) {
+             if(player.x > element.x){
+             score = score + 1;
+             }
+             });*/
+            for(;i < enemy.length ;) {
+                //console.log(i);
+                if(player.x > enemy[i].x ){
+                    document.getElementById("crossEnemy").play();
+                    score = score + 1;
+                    updateScore = true;
+                    i++;
+                }else{
+                    break;
+                }
+            }
+
+            // for timer
+            timer--;
+            //console.log(timer);
+            if(timer <= 0){
+                lives--;
+                if( lives <= 0){
+                    gameOver = true;
+                    lives = 3;
+                    window.location.assign("gameOver.html");
+                }
+                bg.pause();
+                document.getElementById("timeFinished").play();
+                alert("\n\n TIMES UP  !!!! \n\n YOUR SCORE IS : " + score +"\n\n");
+                gameOver = true;
+            }
+
+        }
+        var draw = function() {
+            // clear the screen
+            ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+            ctx.fillStyle = "rgb(0,200,0)"; /// we are filling ink
+
+            //Draw enemies
+            enemy.forEach(function (element,index) {
+                ctx.drawImage(object.enemy[index],element.x,element.y,element.w,element.h);
+            });
+
+            //Draw player
+            ctx.fillStyle = "rgb(200,0,0)";
+            ctx.drawImage(object.player,player.x,player.y,player.w,player.h);
+
+            // Draw Goal
+            ctx.fillStyle = "rgb(100,100,230)";
+            ctx.drawImage(object.goal,goal.x,goal.y,goal.w,goal.h);
+
+            // giving box red border ang blue background color
+            ctx.strokeStyle = "red";
+            ctx.strokeRect(GAME_WIDTH-200,10,180,120);
+            ctx.fillStyle = "black";
+            ctx.fillRect(GAME_WIDTH-200,10,180,120);
+
+            ctx.font = "20px arial";
+            ctx.fillStyle = "white";
+            ctx.fillText("SCORE : ",GAME_WIDTH-190,45);
+            ctx.font = "25px arial";
+            ctx.fillStyle = "blue";
+            ctx.fillText(score,GAME_WIDTH-60,45);
+            ctx.font = "20px arial";
+            ctx.fillStyle = "white";
+            ctx.fillText("TIME LEFT : ",GAME_WIDTH-190,80);
+            ctx.fillStyle = "red";
+            time  = timer - 2;
+            if(time <= 0) time = 0; // otherwise it will show -1
+            ctx.fillText(time,GAME_WIDTH-70,80);
+            ctx.font = "25px arial";
+            ctx.fillStyle = "white";
+            ctx.fillText("Life : ",GAME_WIDTH-190,115);
+            ctx.fillStyle = "deeppink";
+            ctx.fillText(lives,GAME_WIDTH-60,115);
+        }
+
+        var render =  function () {
+            draw();
+            update();
+
+            if(gameOver == false)
+                window.requestAnimationFrame(render);
+
+            localStorage.setItem("myscore2",score);
+            localStorage.setItem("mylives",lives);
+
+        }
+
+        render();
+
+    </script>
+    </body>
+</html>

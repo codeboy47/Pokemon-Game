@@ -1,0 +1,210 @@
+<!-- http://downloads.khinsider.com/game-soundtracks/browse/S -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Pocket Monsters </title>
+    <style>
+
+        *{
+            padding:0px;
+            margin:0px;
+
+        }
+        body{
+            width:100%;
+            height:100%;
+            //background-image:url("assets/pokemon-wallpaper-005.jpg");
+            //background-size:61%;
+            //background-repeat: no-repeat;
+            background: radial-gradient(circle, #FCC 20%, #99F);
+            //background-color: #99FFCC; FFCCE5
+            //background-position-x:270px ;
+            //background-position-y:10px;
+        }
+        #play:hover{
+            background-color: yellow;
+            color:royalblue;
+            border:5px solid royalblue;
+            box-shadow: 2px 2px 5px royalblue;
+        }
+        #play{
+            border-radius: 10px;
+            font-size: 30px;
+            font-weight: bolder;
+            background-color: #1c70ff;
+            border:2px solid yellow;
+            box-shadow: 2px 2px 5px yellow;
+            color: #fffe00;
+            width:200px;
+            height:50px;
+            margin-top:530px;
+            margin-left: 590px;
+        }
+        #ashnpikachu{
+            position: absolute;
+            background-image: url("assets/Ash_XY.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            margin-left: 0px;
+            margin-top: 100px;
+            width:500px;
+            height:400px;
+            animation: moveAsh 4s linear infinite;
+        }
+
+        #poke{
+            position: absolute;
+            background-image: url("assets/pokemon.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            margin-left: 500px;
+            margin-top: -100px;
+            width:500px;
+            height:400px;
+            animation: move 2s ease 1;
+            /*position: absolute;
+            margin-left:100px;  // 480
+            margin-top: 30px;  // -80
+            width:600px;
+            height:400px;
+            background-image:url("assets/pokemon.png");
+            background-size:contain;
+            background-repeat: no-repeat;
+            animation:move 2s ease 1;*/
+        }
+        #ash2{
+            position: absolute;
+            background-image: url("assets/Anime_Ash.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            margin-left: 1000px;
+            margin-top: 100px;
+            width:500px;
+            height:400px;
+            animation: Ash2 4s ease 1;
+        }
+        #charizard{
+            position: absolute;
+            background-image: url("assets/charizard3.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            margin-left: 300px;
+            margin-top: 150px;
+            width:600px;
+            height:380px;
+            animation: char 4s ease-out 1;
+        }
+        @-webkit-keyframes moveAsh {
+            0%{
+                transform: rotateZ(0deg);
+            }
+            25%{
+                transform: rotateZ(-10deg);
+            }
+            50%{
+                transform: rotateZ(0deg);
+            }
+            75%{
+                transform: rotateZ(10deg);
+            }
+            100%{
+                transform: rotateZ(0deg);
+            }
+        }
+
+        @-webkit-keyframes Ash2 {
+            0%{
+                margin-top:-400px;
+            }
+            50%{
+                margin-bottom: -400px;
+            }
+            100%{
+                margin-top: 100px;
+            }
+        }
+
+        @-webkit-keyframes char{
+            0%{
+                margin-left:-700px;
+            }
+            50%{
+              margin-left: 400px;
+            }
+            100%{
+                margin-left: 300px;
+            }
+        }
+        @-webkit-keyframes move{
+            0%{
+                opacity: 0;
+                background-image: none;
+                width:100px;
+                height:50px;
+                transform: rotateZ(0deg);
+            }
+            50%{
+                opacity: 0;
+                width:100px;
+                height:50px;
+                transform: rotateZ(0deg);
+            }
+            100%{
+                opacity: 1;
+                width:500px;
+                height:400px;
+                transform: rotateZ(720deg);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+<div id = "ashnpikachu"> </div>
+<div id = "ash2"> </div>
+<div id = "charizard"> </div>
+<div id = "poke" >  </div>
+
+<audio  src="pokeSong/mixpokerap.mp3" autoplay volume = "0.4" loop ></audio>
+<input type="button" name = "button" id = "play"
+onclick = "start()" value = "Play">
+
+<script>
+    var count = 300,left,right,chari = document.getElementById("charizard");
+    var lives = 3;
+    function start() {
+        left = setInterval("charizardMoveLeft()",10);
+    }
+    function charizardMoveLeft() {
+        if(count > 100){
+            chari.style.marginLeft = count + "px" ;
+            count = count - 2;
+        }else{
+            stopLeft();
+        }
+    }
+
+    function charizardMoveRight(){
+        if(count <= window.innerWidth + 10){
+            chari.style.marginLeft = count + "px" ;
+            count = count + 7;
+        }else{
+            stopRight();
+        }
+    }
+    function stopLeft(){
+        clearInterval(left);
+        right = setInterval("charizardMoveRight()",10);
+    }
+    function stopRight(){
+        clearInterval(right);
+        document.location.assign('advancedPokemonGame_1.html');
+    }
+    
+    localStorage.setItem("mylives",lives);
+
+</script>
+</body>
+</html>
