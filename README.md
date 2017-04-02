@@ -13,8 +13,7 @@ It is made using HTML5 , Canvas , CSS3 and Javascript.*
 
 ## INSTRUCTIONS
 
-You have to complete three levels to win this game. In each level you will encounter five different pokemons in your path.   
-Your aim is to reach towards a pokeball before the time limit. Time limit decreases as your level increases. Plus speed of rival pokemons also increases. You are given three lives to complete this challenge.
+You have to complete three levels to win this game. In each level you will encounter five different pokemons in your path.Your aim is to reach towards a pokeball before the time limit. Time limit decreases as your level increases. Plus speed of rival pokemons also increases. You are given three lives to complete this challenge.
 
 ### Grass Level
 
@@ -35,7 +34,7 @@ Your aim is to reach towards a pokeball before the time limit. Time limit decrea
 <br>
 <br>
 
-**_So complete all three round and become pokemon master_**
+**_So complete all three rounds and become pokemon master_**
 
 <img  src = "https://github.com/akshitSingh07/Pokemon-Game/blob/master/Levels/Victory.png" />
 
