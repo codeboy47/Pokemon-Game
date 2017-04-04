@@ -7,7 +7,7 @@
 
 ## INTRODUCTION
 *A simple Javascript game based on the popular cartoon series Pokemon. This game includes three levels (grass, water, fire).
-It is made using HTML5 , Canvas , CSS3 and Javascript.*
+It is made using HTML5 , Canvas , CSS3 and Javascript. *
 
 <br>
 
@@ -16,19 +16,19 @@ It is made using HTML5 , Canvas , CSS3 and Javascript.*
 You have to complete three levels to win this game. In each level you will encounter five different pokemons in your path.
 Your aim is to reach towards a pokeball before the time limit. Time limit decreases as your level increases. Plus speed of rival pokemons also increases. You are given three lives to complete this challenge.
 
-### Grass Level
+### Grass-Level
 
 <img  src = "https://github.com/akshitSingh07/Pokemon-Game/blob/master/Levels/Grass Level.png" />
 
 <br>
 
-### Water Level
+### Water-Level
 
 <img  src = "https://github.com/akshitSingh07/Pokemon-Game/blob/master/Levels/Water Level.png" />
 
 <br>
 
-### Fire  Level
+### Fire-Level
 
 <img  src = "https://github.com/akshitSingh07/Pokemon-Game/blob/master/Levels/Fire Level.png" />
 
