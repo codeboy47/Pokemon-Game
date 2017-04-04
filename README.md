@@ -28,7 +28,7 @@ Your aim is to reach towards a pokeball before the time limit. Time limit decrea
 
 <br>
 
-### Fire Level
+### Fire  Level
 
 <img  src = "https://github.com/akshitSingh07/Pokemon-Game/blob/master/Levels/Fire Level.png" />
 
