@@ -43,4 +43,4 @@ Your aim is to reach towards a pokeball before the time limit. Time limit decrea
 <br>
 <br>
 
-To see the game in action click the link :  **_https://akshitSingh07.github.io/Pokemon-Game/_**
+To see the game in action click the link :  **_https://codeboy47.github.io/Pokemon-Game/_**
